@@ -1,7 +1,7 @@
 time = 0:.01:10; 
 
 % Solving ODE
-[T, Theta] = ode45(@pend_anal, time, [pi/4 0]);
+[T, Theta] = ode(@pend_anal, [pi / 4, 0], time)l
 
 % Creating new figure
 figure(1)
