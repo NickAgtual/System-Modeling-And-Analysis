@@ -1,10 +1,78 @@
-time = 0:.01:10; 
+time = 0:.01:10;
+
+global l
 
 % Solving ODE
-[T, Theta] = ode(@pend_anal, [pi / 4, 0], time)l
+% Each pair in input vecotr is the initial conditions
+[T, Theta] = ode45(@pend_anal, time, [pi/3 0 pi/3 0 pi/4 0]);
 
 % Creating new figure
 figure(1)
 
 % Plotting
 plot(T, Theta(:, 1))
+
+% Creating new figure
+figure(2)
+
+% Plotting
+plot(T, Theta(:, 2))
+
+% Length of angles
+lengthAngle = size(Theta, 1);
+
+%% Animation
+
+%
+gamma = 1:.1: (2 * pi);
+
+% Radius of circle at end of pendulum
+radiusCircle = .5;
+
+for ii = 1:lengthAngle
+    
+    % Linear pendulum particle coordinates
+    xCircleL = (l * sin(Theta(ii, 1))) + (radiusCircle * cos(gamma));
+    yCircleL = (-l * cos(Theta(ii, 1))) + (radiusCircle * sin(gamma));
+    
+    % Non linear pundu
+    xCircleNL = (l * sin(Theta(ii, 3))) + (radiusCircle * cos(gamma));
+    yCircleNL = (-l * cos(Theta(ii, 3))) + (radiusCircle * sin(gamma));
+    
+    
+    
+    % Creating new figure
+    figure(3)
+    
+    % Plotting peundulum arm (linear)
+    plot([0; l * sin(Theta(ii, 1))], [0; -l * cos(Theta(ii, 1))])
+    
+    hold on
+    
+    % Plotting pendulum arm (non-linear)
+    plot([0; l * sin(Theta(ii, 3))], [0; -l * cos(Theta(ii, 3))])
+    
+    % Plotting inverted pendulum (linear)
+    plot([0; l * sin(Theta(ii, 5))], [0; l * cos(Theta(ii, 5))])
+    
+    % Plotting circle points (linear)
+    fill(xCircleL, yCircleL, 'r')
+    
+    % Plotting circle points (non-linear)
+    fill(xCircleNL, yCircleNL, 'b')
+    
+    % Plotting inverted pendulum circle (linear)
+    fill(
+    
+    hold off
+    
+    axis([-12 12 -15 1]);
+    
+    grid on
+    grid minor
+    
+    
+end
+
+
+
