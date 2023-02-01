@@ -1,4 +1,4 @@
-function [dm, l] = pendulumAnalysis(m)
+function [dm, length] = pendulumAnalysis(t, m)
 
 % Initializing state variables
 dm = zeros(8, 1);
@@ -11,7 +11,7 @@ g = 9.81;
 
 % Length of penudlum arm
 % w = sqrt(g/l)
-l = g / (omegan ^ 2);
+length = g / (omegan ^ 2);
 
 %% Regular Pendulum State Space Equations
 
@@ -27,10 +27,10 @@ dm(4) = -omegan^2 * sin(m(1));
 
 % Non-Linear ODE
 dm(5) = m(6);
-dm(6) = (g / l) * sin(m(5));
+dm(6) = (g / length) * sin(m(5));
 
 % Linear ODE
 dm(7) = m(8);
-dm(8) = g / l;
+dm(8) = g / length;
 
 end

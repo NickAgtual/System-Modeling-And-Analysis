@@ -84,7 +84,6 @@ for ii = 1:lengthAngle
     % Plotting support
     fill([-1, 1, 1, -1], [-1, -1, 1, 1], 'k')
     
-    % Turning off plotting abilities
     hold off
     
     % Setting axis limits
@@ -93,7 +92,8 @@ for ii = 1:lengthAngle
     % Plot parameters
     grid on
     grid minor
-        
+    
+    
 end
 
 
