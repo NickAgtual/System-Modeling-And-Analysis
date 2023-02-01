@@ -1,4 +1,4 @@
-function [dm, l] = pendulumAnalysis(m)
+function [dm, l] = pendulumAnalysis(t, m)
 
 % Initializing state variables
 dm = zeros(8, 1);
@@ -15,21 +15,20 @@ l = g / (omegan ^ 2);
 
 %% Regular Pendulum State Space Equations
 
-% Linear ODE
+% State space equations (linear ODE)
 dm(1) = m(2);
 dm(2) = -omegan^2 * m(1);
 
-% Non-Linear ODE
+% State space equations (non-linear ODE)
 dm(3) = m(4);
 dm(4) = -omegan^2 * sin(m(1));
 
 %% Inverted Pendulum State Space Eqautions
 
-% Non-Linear ODE
+% Non-linear
 dm(5) = m(6);
 dm(6) = (g / l) * sin(m(5));
 
-% Linear ODE
 dm(7) = m(8);
 dm(8) = g / l;
 
