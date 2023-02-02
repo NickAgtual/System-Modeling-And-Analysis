@@ -16,11 +16,19 @@ figure(1)
 % Plotting
 plot(T, Theta(:, 1))
 
+% Plot parameters
+grid on
+grid minor
+
 % Creating new figure
 figure(2)
 
 % Plotting
 plot(T, Theta(:, 2))
+
+% Plot parameters
+grid on
+grid minor
 
 % Length of angles
 lengthAngle = size(Theta, 1);
@@ -95,9 +103,5 @@ for ii = 1:lengthAngle
     grid minor
         
 end
-
-
-
-
 
 end
