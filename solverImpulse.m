@@ -5,19 +5,19 @@ global l
 
 % Solving ODE
 % Each pair in input vecotr is the initial conditions
-[T, Theta] = ode45(@pend_anal, time, [0 0 0 0]);
+[T, Theta] = ode45(@pendImpulseMod, time, [0 0 0 0]);
 
 % Creating new figure
 figure(1)
 
 % Plotting
-plot(T, Theta(:, 1))
+plot(T, Theta(:, 1) * 180/ pi)
 
 % Creating new figure
 figure(2)
 
 % Plotting
-plot(T, Theta(:, 2))
+plot(T, Theta(:, 3) * 180 /pi)
 
 % Length of angles
 lengthAngle = size(Theta, 1);
@@ -41,13 +41,12 @@ for ii = 1:lengthAngle
     yCircleNL = (-l * cos(Theta(ii, 3))) + (radiusCircle * sin(gamma));
     
     % Non-Linear inverted pendulum particles
-    xCircleInvNL = (l * sin(Theta(ii, 5))) + (radiusCircle * cos(gamma));
-    yCircleInvNL = (l * cos(Theta(ii, 5))) + (radiusCircle * sin(gamma));
+    % xCircleInvNL = (l * sin(Theta(ii, 5))) + (radiusCircle * cos(gamma));
+    % yCircleInvNL = (l * cos(Theta(ii, 5))) + (radiusCircle * sin(gamma));
     
     % linear inverted penudlum particle
-    xCircleInvL = (l * sin(Theta(ii, 7))) + (radiusCircle * cos(gamma));
-    yCircleInvL = (l * cos(Theta(ii, 7))) + (radiusCircle * sin(gamma));
-    
+%     xCircleInvL = (l * sin(Theta(ii, 7))) + (radiusCircle * cos(gamma));
+%     yCircleInvL = (l * cos(Theta(ii, 7))) + (radiusCircle * sin(gamma)); 
     % Creating new figure
     figure(3)
     
@@ -60,10 +59,10 @@ for ii = 1:lengthAngle
     plot([0; l * sin(Theta(ii, 3))], [0; -l * cos(Theta(ii, 3))], 'r')
     
     % Plotting inverted pendulum (Non-linear)
-    plot([0; l * sin(Theta(ii, 5))], [0; l * cos(Theta(ii, 5))], 'g')
+    % plot([0; l * sin(Theta(ii, 5))], [0; l * cos(Theta(ii, 5))], 'g')
     
     % Plotting inverted pendulum (linear)
-    plot([0; l * sin(Theta(ii, 7))], [0; l * cos(Theta(ii, 7))], 'k')
+    % plot([0; l * sin(Theta(ii, 7))], [0; l * cos(Theta(ii, 7))], 'k')
     
     % Plotting circle points (linear)
     fill(xCircleL, yCircleL, 'b')
@@ -72,10 +71,10 @@ for ii = 1:lengthAngle
     fill(xCircleNL, yCircleNL, 'r')
     
     % Plotting inverted pendulum circle (non-linear)
-    fill(xCircleInvNL, yCircleInvNL, 'g')
+    %fill(xCircleInvNL, yCircleInvNL, 'g')
     
     % Plotting inverted pendulum circle linear
-    fill(xCircleInvL, yCircleInvL, 'k')
+    % fill(xCircleInvL, yCircleInvL, 'k')
     
     % Plotting support
     fill([-1, 1, 1, -1], [-1, -1, 1, 1], 'k')
