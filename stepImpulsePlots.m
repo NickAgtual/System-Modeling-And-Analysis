@@ -14,16 +14,21 @@ figure(1)
 step(num, den1, time)
 hold on
 step(num, den2, time)
+grid on
+grid minor
 
 legend('\tau1', '\tau2')
+title('Impulse Response')
 
 
+timeNew = 0:.01:50;
 numNew = [1 0];
 figure(2)
-step(numNew, den1)
+step(numNew, den1, timeNew)
 hold on
-step(numNew, den2)
+step(numNew, den2, timeNew)
 grid on
 grid minor
 legend('\tau1', '\tau2')
+title('Step Response')
 
