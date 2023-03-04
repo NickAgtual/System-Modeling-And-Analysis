@@ -10,7 +10,9 @@ y = .5 * (t .^2);
 
 figure(1)
 step(num, den, t)
-plot(t, y)
+hold on 
+plot(t, y, 'r')
 legend('Output', 'Input')
+title('Parabolic Response')
 grid on 
 grid minor
