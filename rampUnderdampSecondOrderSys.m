@@ -11,9 +11,9 @@ den2 = [1 2 * zeta2 * omegan omegan ^ 2 0];
 
 numFirstOrder = [0 0 1];
 tau = 2; % Time constant
-denFirstOrder = [tau 1 0]
+denFirstOrder = [tau 1 0];
 
-time = 0:.01:15;
+time = 0:.01:4;
 
 input = time; %ramp
 
@@ -25,3 +25,5 @@ plot(time, input, 'r')
 step(numFirstOrder, denFirstOrder, time)
 grid on
 grid minor
+
+legend('\zeta_1 = .05', '\zeta_2 = .3', 'y=t', 'first order')
