@@ -22,6 +22,5 @@ step(num, den1, time)
 hold on
 step(num, den2, time)
 plot(time, input, 'r')
-step(numFirstOrder, denFirstOrder, time)
 grid on
 grid minor
