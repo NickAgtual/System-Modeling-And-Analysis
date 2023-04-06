@@ -1,6 +1,7 @@
-clear; close all; clc
+function electromechanicalSystemSolver()
 
 %% Question 1
+
 % Defining time vector
 time = 0:.01:6500;
 
@@ -50,20 +51,20 @@ legend('location', 'northwest', 'Interpreter', 'Latex')
 %% Question 2
 
 % Definign symbolic variables
-syms ii 
+syms ii
 
 % Equillibrium equation #1
-eqEqn = 0 == (constants.d(3) - ii) / constants.d(4);
+eqEqn1 = 0 == (constants.d(3) - ii) / constants.d(4);
 
-% Solving for current equilibrium point algebraically
-iStarAlgeba = solve(eqEqn, ii);
+% Solving for current at equillibrium point alebraically
+iEq = solve(eqEqn1, ii);
 
 % Solving for equilibrium points
-alphaStar.rad = m(end, 1);
+alphaStar = m(end, 1);
 alphaDotStar = m(end, 2);
 iStar = m(end, 3);
 
-% Converting radians to degrees
-alphaStar.deg = alphaStar.rad * (180 /pi);
-
 %% Question 3
+
+
+end
