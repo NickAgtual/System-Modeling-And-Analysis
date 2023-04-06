@@ -11,12 +11,13 @@ constants.d3 = 24;
 constants.d4 = 1000;
 
 % Initializing state variables
-dm = zeros(1, 3);
+dm = zeros(3, 1);
 
 % State space equations
 dm(1) = m(2);
-dm(2) = (k * m(3) + ((m(1)^(.3)) * exp(-.05 * (m(1) ^ .5))) - ...
-    (b * sin(m(2))) - (c * tan(m(1)))) / a;
-dm(3) = ((m(2) * m(1) * m(3)) / (d1 + (d2 * m(1)))) + ((d3 - m(3)) / d4);
+dm(2) = (constants.k * m(3) + ((m(1)^(.3)) * exp(-.05 * (m(1) ^ .5))) - ...
+    (constants.b * sin(m(2))) - (constants.c * tan(m(1)))) / constants.a;
+dm(3) = ((m(2) * m(1) * m(3)) / (constants.d1 + (constants.d2 * m(1)))) ...
+    + ((constants.d3 - m(3)) / constants.d4);
 
 end
