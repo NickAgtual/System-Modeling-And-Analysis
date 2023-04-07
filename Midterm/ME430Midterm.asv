@@ -136,7 +136,9 @@ linear.completeODE1 = (constants.a * alphaDoubleDot) + ...
 syms s Alpha I
 
 % Linear ODE#1 in frequency domain
-frequency.ODE1 = Alpha * ((s ^ 2) + (0.54 * s) + 7.9601) ...
+% frequency.ODE1 = Alpha * ((s ^ 2) + (0.54 * s) + 7.9601) ...
+%     == (0.07 * I) + (7.9839 / s);
+frequency.ODE1 = Alpha * ((s ^ 2) + (0.54 * s) + 7.9598) ...
     == (0.07 * I) + (7.9839 / s);
 
 % Linear ODE#2 in frquency domain
@@ -148,17 +150,7 @@ frequency.solution = solve(frequency.ODE1, frequency.ODE2, Alpha, I);
 % Transfer function
 TF = frequency.solution.Alpha / frequency.solution.I;
 
-% Printing transfer function
 pretty(TF);
-
-% TF Numerator
-num = [26613000 -21013];
-
-% TF Denominator
-den = [80000 1506915 636808];
-
-% System transfer function
-system = tf(num, den);
 
 
 
