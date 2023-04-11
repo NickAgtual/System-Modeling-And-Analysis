@@ -2,7 +2,7 @@ function [dm, constants] = electromechanicalODEs(t, m)
 
 % Defining constant values
 constants.a = 1;
-constants.b = .54;
+constants.b = 7.6; %.54;
 constants.c = 1;
 constants.k = .07;
 constants.d = [140 320 24 1000];

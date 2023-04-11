@@ -1,0 +1,410 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ME430Midterm</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-04-10"><meta name="DC.source" content="ME430Midterm.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Question 1</a></li><li><a href="#3">Question 2</a></li><li><a href="#4">Question 3</a></li><li><a href="#5">Question 4</a></li></ul></div><pre class="codeinput">clear; close <span class="string">all</span>; clc
+</pre><h2 id="2">Question 1</h2><p>Defining time vector</p><pre class="codeinput">time = 0:.01:6500;
+
+<span class="comment">% Solving ODE using ode45</span>
+[T, m] = ode45(@electromechanicalODEs, time, [0 0 0]);
+
+<span class="comment">% Extracting constants in ODE fxn</span>
+[~, constants] = electromechanicalODEs(T, m);
+
+<span class="comment">% Creating new figure</span>
+figure(1)
+
+<span class="comment">% Plotting rotation angle vs. time</span>
+plot(T, m(:, 1) * (180 / pi), <span class="string">'displayName'</span>, <span class="string">'Roation Angle'</span>)
+
+<span class="comment">% Plot parameters</span>
+grid <span class="string">on</span>
+grid <span class="string">minor</span>
+ylim([0 76]);
+
+<span class="comment">% Plot descriptors</span>
+title(<span class="string">'\emph{$\alpha$ vs. t}'</span>, <span class="string">'fontsize'</span>, <span class="keyword">...</span>
+    16, <span class="string">'Interpreter'</span>, <span class="string">'Latex'</span>)
+xlabel(<span class="string">'\emph{t [sec]}'</span>, <span class="string">'fontsize'</span>, 14, <span class="string">'Interpreter'</span>, <span class="string">'Latex'</span>)
+ylabel(<span class="string">'\emph{$\alpha$ [deg]}'</span>,<span class="keyword">...</span>
+    <span class="string">'fontsize'</span>, 14, <span class="string">'Interpreter'</span>, <span class="string">'Latex'</span>)
+legend(<span class="string">'location'</span>, <span class="string">'northwest'</span>, <span class="string">'Interpreter'</span>, <span class="string">'Latex'</span>)
+
+<span class="comment">% Creating new figure</span>
+figure(2)
+
+<span class="comment">% Plotting actuator current vs. time</span>
+plot(T, m(:, 3), <span class="string">'displayName'</span>, <span class="string">'Actuator Current'</span>)
+
+<span class="comment">% Plot parameters</span>
+grid <span class="string">on</span>
+grid <span class="string">minor</span>
+
+<span class="comment">% Plot descriptors</span>
+title(<span class="string">'\emph{i vs. t}'</span>, <span class="string">'fontsize'</span>, <span class="keyword">...</span>
+    16, <span class="string">'Interpreter'</span>, <span class="string">'Latex'</span>)
+xlabel(<span class="string">'\emph{t [sec]}'</span>, <span class="string">'fontsize'</span>, 14, <span class="string">'Interpreter'</span>, <span class="string">'Latex'</span>)
+ylabel(<span class="string">'\emph{i [Amperes]}'</span>,<span class="keyword">...</span>
+    <span class="string">'fontsize'</span>, 14, <span class="string">'Interpreter'</span>, <span class="string">'Latex'</span>)
+legend(<span class="string">'location'</span>, <span class="string">'northwest'</span>, <span class="string">'Interpreter'</span>, <span class="string">'Latex'</span>)
+</pre><img vspace="5" hspace="5" src="ME430Midterm_01.png" alt=""> <img vspace="5" hspace="5" src="ME430Midterm_02.png" alt=""> <h2 id="3">Question 2</h2><pre class="codeinput"><span class="comment">% Definign symbolic variables</span>
+syms <span class="string">ii</span>
+
+<span class="comment">% Equillibrium equation #1</span>
+eqEqn = 0 == (constants.d(3) - ii) / constants.d(4);
+
+<span class="comment">% Solving for current equilibrium point algebraically</span>
+iStarAlgeba = solve(eqEqn, ii);
+
+<span class="comment">% Solving for equilibrium points</span>
+alphaStar.rad = m(end, 1);
+alphaDotStar = m(end, 2);
+iStar = m(end, 3);
+
+<span class="comment">% Converting radians to degrees</span>
+alphaStar.deg = alphaStar.rad * (180 /pi);
+</pre><h2 id="4">Question 3</h2><p>Defining symbolic variables</p><pre class="codeinput">syms <span class="string">alphaDot</span> <span class="string">alpha</span> <span class="string">ii</span> <span class="string">d1</span> <span class="string">d2</span>
+
+<span class="comment">% Defining field names for structure containing nonlinear equations</span>
+fieldNames = {<span class="string">'eq1'</span>, <span class="string">'eq2'</span>, <span class="string">'eq3'</span>, <span class="string">'eq4'</span>};
+
+<span class="comment">% Defining symbolic math precision</span>
+precision = 4;
+
+<span class="comment">% ----- Linearizing sin(alphaDot)-----</span>
+nonlinear.eq1 = sin(alphaDot);
+var.eq1 = alphaDot;
+varNew.eq1 = alphaDotStar;
+
+<span class="comment">% ----- Linearizing tan(alpha) -----</span>
+nonlinear.eq2 = tan(alpha);
+var.eq2 = alpha;
+varNew.eq2 = alphaStar.rad;
+
+<span class="comment">% ----- Linearizing alpha^.3 * exp(-.05*alpha^.5) -----</span>
+nonlinear.eq3 = (alpha ^ .3) * exp(-.05 * (alpha ^ .5));
+var.eq3 = alpha;
+varNew.eq3 = alphaStar.rad;
+
+<span class="comment">% ----- Linearizing (alphaDot * alpha * i)/(d1 + (d2 * alpha)) -----</span>
+nonlinear.eq4 = (alphaDot * alpha * ii) / (constants.d(1) + <span class="keyword">...</span>
+    (constants.d(2) * alpha));
+
+var.eq4 = [alpha alphaDot ii];
+varNew.eq4 = [alphaStar.rad alphaDotStar iStar];
+
+<span class="keyword">for</span> jj = 1:length(fieldnames(nonlinear))
+
+    <span class="keyword">if</span> jj ~= 4
+
+        linear.(fieldNames{jj}) = <span class="keyword">...</span>
+            vpa(subs(nonlinear.(fieldNames{jj}),var.(fieldNames{jj}), <span class="keyword">...</span>
+            varNew.(fieldNames{jj})) + <span class="keyword">...</span>
+            (subs(diff(nonlinear.(fieldNames{jj}), <span class="keyword">...</span>
+            var.(fieldNames{jj})), var.(fieldNames{jj}), <span class="keyword">...</span>
+            varNew.(fieldNames{jj})) <span class="keyword">...</span>
+            * (var.(fieldNames{jj}) - varNew.(fieldNames{jj}))), <span class="keyword">...</span>
+            precision);
+
+    <span class="keyword">else</span>
+
+        linear.eq4 = vpa(subs(nonlinear.eq4, var.eq4, varNew.eq4) + <span class="keyword">...</span>
+            (subs(diff(nonlinear.eq4, var.eq4(1)), <span class="keyword">...</span>
+            var.eq4, varNew.eq4) * <span class="keyword">...</span>
+            (var.eq4(1) - varNew.eq4(1))) + <span class="keyword">...</span>
+            (subs(diff(nonlinear.eq4, var.eq4(2)), <span class="keyword">...</span>
+            var.eq4, varNew.eq4) * <span class="keyword">...</span>
+            (var.eq4(2) - varNew.eq4(2))) + <span class="keyword">...</span>
+            (subs(diff(nonlinear.eq4, var.eq4(3)), <span class="keyword">...</span>
+            var.eq4, varNew.eq4) * <span class="keyword">...</span>
+            (var.eq4(3) - varNew.eq4(3))), precision);
+
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+
+<span class="comment">% Compiling linearized ODEs</span>
+<span class="comment">% Defining additional symbolic variable</span>
+syms <span class="string">alphaDoubleDot</span>
+
+<span class="comment">% Linear ODE#1</span>
+linear.completeODE1 = vpa((constants.a * alphaDoubleDot) + <span class="keyword">...</span>
+    (constants.b * linear.eq1) + <span class="keyword">...</span>
+    (constants.c * linear.eq2) == (constants.k * ii) + <span class="keyword">...</span>
+    linear.eq3, precision);
+
+<span class="comment">% Linear ODE#2</span>
+linear.completeODE2 = vpa(linear.eq4 + <span class="keyword">...</span>
+    ((constants.d(3) - ii) / constants.d(4)), precision);
+</pre><h2 id="5">Question 4</h2><p>Defining additional symbolic variables</p><pre class="codeinput">syms <span class="string">s</span> <span class="string">Alpha</span> <span class="string">I</span>
+
+<span class="comment">% Linear ODE#1 in frequency domain</span>
+frequency.ODE1 = Alpha * ((s ^ 2) + (0.54 * s) + 7.9601) <span class="keyword">...</span>
+    == (0.07 * I) + (7.9839 / s);
+
+<span class="comment">% Linear ODE#2 in frquency domain</span>
+frequency.ODE2 = s * I == (.055 * Alpha * s) + (.001 * I) + (.024 / s);
+
+<span class="comment">% Solving system of euqations</span>
+frequency.solution = solve(frequency.ODE1, frequency.ODE2, Alpha, I);
+
+<span class="comment">% Transfer function</span>
+TF = frequency.solution.Alpha / frequency.solution.I;
+
+<span class="comment">% Printing transfer function</span>
+pretty(TF);
+
+<span class="comment">% TF Numerator</span>
+num = [26613000 -21013];
+
+<span class="comment">% TF Denominator</span>
+den = [80000 1506915 636808];
+
+<span class="comment">% System transfer function</span>
+system = tf(num, den);
+</pre><pre class="codeoutput">      26613000 s - 21013
+-----------------------------
+       2
+80000 s  + 1506915 s + 636808
+
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+clear; close all; clc
+
+%% Question 1
+% Defining time vector
+time = 0:.01:6500;
+
+% Solving ODE using ode45
+[T, m] = ode45(@electromechanicalODEs, time, [0 0 0]);
+
+% Extracting constants in ODE fxn
+[~, constants] = electromechanicalODEs(T, m);
+
+% Creating new figure
+figure(1)
+
+% Plotting rotation angle vs. time
+plot(T, m(:, 1) * (180 / pi), 'displayName', 'Roation Angle')
+
+% Plot parameters
+grid on
+grid minor
+ylim([0 76]);
+
+% Plot descriptors
+title('\emph{$\alpha$ vs. t}', 'fontsize', ...
+    16, 'Interpreter', 'Latex')
+xlabel('\emph{t [sec]}', 'fontsize', 14, 'Interpreter', 'Latex')
+ylabel('\emph{$\alpha$ [deg]}',...
+    'fontsize', 14, 'Interpreter', 'Latex')
+legend('location', 'northwest', 'Interpreter', 'Latex')
+
+% Creating new figure
+figure(2)
+
+% Plotting actuator current vs. time
+plot(T, m(:, 3), 'displayName', 'Actuator Current')
+
+% Plot parameters
+grid on
+grid minor
+
+% Plot descriptors
+title('\emph{i vs. t}', 'fontsize', ...
+    16, 'Interpreter', 'Latex')
+xlabel('\emph{t [sec]}', 'fontsize', 14, 'Interpreter', 'Latex')
+ylabel('\emph{i [Amperes]}',...
+    'fontsize', 14, 'Interpreter', 'Latex')
+legend('location', 'northwest', 'Interpreter', 'Latex')
+
+%% Question 2
+
+% Definign symbolic variables
+syms ii 
+
+% Equillibrium equation #1
+eqEqn = 0 == (constants.d(3) - ii) / constants.d(4);
+
+% Solving for current equilibrium point algebraically
+iStarAlgeba = solve(eqEqn, ii);
+
+% Solving for equilibrium points
+alphaStar.rad = m(end, 1);
+alphaDotStar = m(end, 2);
+iStar = m(end, 3);
+
+% Converting radians to degrees
+alphaStar.deg = alphaStar.rad * (180 /pi);
+
+%% Question 3
+% Defining symbolic variables
+syms alphaDot alpha ii d1 d2
+
+% Defining field names for structure containing nonlinear equations
+fieldNames = {'eq1', 'eq2', 'eq3', 'eq4'};
+
+% Defining symbolic math precision
+precision = 4;
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Linearizing sin(alphaDot)REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+nonlinear.eq1 = sin(alphaDot);
+var.eq1 = alphaDot;
+varNew.eq1 = alphaDotStar;
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Linearizing tan(alpha) REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+nonlinear.eq2 = tan(alpha);
+var.eq2 = alpha;
+varNew.eq2 = alphaStar.rad;
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Linearizing alpha^.3 * exp(-.05*alpha^.5) REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+nonlinear.eq3 = (alpha ^ .3) * exp(-.05 * (alpha ^ .5));
+var.eq3 = alpha;
+varNew.eq3 = alphaStar.rad;
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Linearizing (alphaDot * alpha * i)/(d1 + (d2 * alpha)) REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+nonlinear.eq4 = (alphaDot * alpha * ii) / (constants.d(1) + ...
+    (constants.d(2) * alpha));
+
+var.eq4 = [alpha alphaDot ii];
+varNew.eq4 = [alphaStar.rad alphaDotStar iStar];
+
+for jj = 1:length(fieldnames(nonlinear))
+    
+    if jj ~= 4
+        
+        linear.(fieldNames{jj}) = ...
+            vpa(subs(nonlinear.(fieldNames{jj}),var.(fieldNames{jj}), ...
+            varNew.(fieldNames{jj})) + ...
+            (subs(diff(nonlinear.(fieldNames{jj}), ...
+            var.(fieldNames{jj})), var.(fieldNames{jj}), ...
+            varNew.(fieldNames{jj})) ...
+            * (var.(fieldNames{jj}) - varNew.(fieldNames{jj}))), ...
+            precision);
+        
+    else
+        
+        linear.eq4 = vpa(subs(nonlinear.eq4, var.eq4, varNew.eq4) + ...
+            (subs(diff(nonlinear.eq4, var.eq4(1)), ...
+            var.eq4, varNew.eq4) * ...
+            (var.eq4(1) - varNew.eq4(1))) + ...
+            (subs(diff(nonlinear.eq4, var.eq4(2)), ...
+            var.eq4, varNew.eq4) * ...
+            (var.eq4(2) - varNew.eq4(2))) + ...
+            (subs(diff(nonlinear.eq4, var.eq4(3)), ...
+            var.eq4, varNew.eq4) * ...
+            (var.eq4(3) - varNew.eq4(3))), precision);
+        
+    end
+    
+end
+
+% Compiling linearized ODEs
+% Defining additional symbolic variable
+syms alphaDoubleDot
+
+% Linear ODE#1
+linear.completeODE1 = vpa((constants.a * alphaDoubleDot) + ...
+    (constants.b * linear.eq1) + ...
+    (constants.c * linear.eq2) == (constants.k * ii) + ...
+    linear.eq3, precision);
+
+% Linear ODE#2
+linear.completeODE2 = vpa(linear.eq4 + ...
+    ((constants.d(3) - ii) / constants.d(4)), precision);
+
+%% Question 4
+% Defining additional symbolic variables
+syms s Alpha I
+
+% Linear ODE#1 in frequency domain
+frequency.ODE1 = Alpha * ((s ^ 2) + (0.54 * s) + 7.9601) ...
+    == (0.07 * I) + (7.9839 / s);
+
+% Linear ODE#2 in frquency domain
+frequency.ODE2 = s * I == (.055 * Alpha * s) + (.001 * I) + (.024 / s);
+
+% Solving system of euqations
+frequency.solution = solve(frequency.ODE1, frequency.ODE2, Alpha, I);
+
+% Transfer function
+TF = frequency.solution.Alpha / frequency.solution.I;
+
+% Printing transfer function
+pretty(TF);
+
+% TF Numerator
+num = [26613000 -21013];
+
+% TF Denominator
+den = [80000 1506915 636808];
+
+% System transfer function
+system = tf(num, den);
+##### SOURCE END #####
+--></body></html>
